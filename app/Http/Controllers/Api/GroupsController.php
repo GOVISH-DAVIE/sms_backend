@@ -41,7 +41,7 @@ class GroupsController extends Controller
     {
         //
         $groups = Groups::create([
-            'name'=>$request->name
+            'name' => $request->name
         ]);
         return $groups;
     }
@@ -55,7 +55,8 @@ class GroupsController extends Controller
     public function show($id)
     {
         //
-        
+        $group = Groups::find($id);
+        return $group;
     }
 
     /**
@@ -67,6 +68,7 @@ class GroupsController extends Controller
     public function edit($id)
     {
         //
+
     }
 
     /**
@@ -79,6 +81,12 @@ class GroupsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'name' => 'required'
+        ]);
+        $group = Groups::find($id);
+        $group->name = $request->name;
+        return $group;
     }
 
     /**
@@ -90,5 +98,10 @@ class GroupsController extends Controller
     public function destroy($id)
     {
         //
+        $group = Groups::find($id);
+        $group->delete();
+        return response()->json([
+            "status" => 'Success'
+        ]);
     }
 }
