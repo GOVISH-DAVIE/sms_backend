@@ -23,8 +23,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('register', [UserController::class, 'create']);
 Route::post('login', [UserController::class, 'login']);
-Route::middleware('auth')->group(function ()
+Route::middleware('auth:sanctum')->group(function ()
 {
-    Route::resource('clients', ClientsController::class);
+    Route::resource('client', ClientsController::class);
     
 });

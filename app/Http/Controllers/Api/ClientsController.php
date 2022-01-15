@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Clients;
 use Illuminate\Http\Request;
 
 class ClientsController extends Controller
@@ -15,6 +16,8 @@ class ClientsController extends Controller
     public function index()
     {
         //
+        $clients = Clients::all();
+        return response()->json($clients);
     }
 
     /**
@@ -36,6 +39,17 @@ class ClientsController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'name' => 'required',
+            'tel' => 'required'
+        ]);
+
+        $client = Clients::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'tel' => $request->tel
+        ]);
+        return response()->json($client);
     }
 
     /**
@@ -47,6 +61,8 @@ class ClientsController extends Controller
     public function show($id)
     {
         //
+        $client = Clients::find($id);
+        return response()->json($client);
     }
 
     /**
@@ -68,8 +84,15 @@ class ClientsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    { 
+
+        $client = Clients::find($id);
+        $client->name  = $request->name;
+        $client->email  = $request->email;
+        $client->tel  = $request->tel;
+        $client->save();
+        return response()->json($client);
+
     }
 
     /**
@@ -81,5 +104,10 @@ class ClientsController extends Controller
     public function destroy($id)
     {
         //
+        $client = Clients::find($id);
+        $client->delete();
+        return response()->json([
+            "status"=>'Success'
+        ]);
     }
 }
