@@ -17,9 +17,12 @@ class ClientsController extends Controller
     {
         //
         $clients = Clients::all();
-
-        return response()->json($clients->load('groups.group'));
+        $c  = $clients->load('groups');
+        return response()->json($c);
     }
+
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -85,7 +88,7 @@ class ClientsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    { 
+    {
 
         $client = Clients::find($id);
         $client->name  = $request->name;
@@ -93,7 +96,6 @@ class ClientsController extends Controller
         $client->tel  = $request->tel;
         $client->save();
         return response()->json($client);
-
     }
 
     /**
@@ -108,7 +110,7 @@ class ClientsController extends Controller
         $client = Clients::find($id);
         $client->delete();
         return response()->json([
-            "status"=>'Success'
+            "status" => 'Success'
         ]);
     }
 }

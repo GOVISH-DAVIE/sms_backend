@@ -11,7 +11,11 @@ class Groups extends Model
 
     protected $fillable = ['name'];
 
-
+    protected $hidden = [
+        'laravel_through_key',
+        'created_at',
+        'updated_at'
+    ];
 
     public function clients()
     {

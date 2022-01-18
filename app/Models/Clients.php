@@ -13,10 +13,20 @@ class Clients extends Model
         'email',
         'tel'
     ];
+    protected $hidden = [
+        'laravel_through_key',
+        'created_at',
+        'updated_at'
+    ];
     public function groups()
     {
-        # code...
-        return $this->hasMany(GroupClient::class, 'client_id');
+
+        return $this->hasManyThrough(Groups::class, GroupClient::class, 'client_id', 'id');
     }
-    
+
+    // public function gr()
+    // {
+    //     return $this->hasManyThrough();
+    // }
+
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\GroupClient;
 use App\Models\Groups;
 use Illuminate\Http\Request;
 use PHPUnit\TextUI\XmlConfiguration\Group;
@@ -43,7 +44,12 @@ class GroupsController extends Controller
         $groups = Groups::create([
             'name' => $request->name
         ]);
-        return $groups;
+        $s =   GroupClient::where('group_id', $groups->id)->get();
+
+        return [
+            'groups' => $groups,
+            'clients' => $s
+        ];
     }
 
     /**
@@ -56,7 +62,12 @@ class GroupsController extends Controller
     {
         //
         $group = Groups::find($id);
-        return $group;
+        $s =   GroupClient::where('group_id', $group->id)->get()->load('clients');
+
+        return [
+            'groups' => $group,
+            'clients' => $s
+        ];
     }
 
     /**

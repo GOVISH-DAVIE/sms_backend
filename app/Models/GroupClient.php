@@ -12,6 +12,11 @@ class GroupClient extends Model
         'group_id',
         'client_id'
     ];
+    protected $hidden = [ 
+        'laravel_through_key',
+        'created_at',
+        'updated_at'
+    ];
     public function clients()
     {
         return $this->belongsTo(Clients::class, 'client_id');
