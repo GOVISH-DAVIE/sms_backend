@@ -3,7 +3,8 @@
 use App\Http\Controllers\Api\ClientsController;
 use App\Http\Controllers\Api\GroupClientController;
 use App\Http\Controllers\Api\GroupsController;
-use App\Http\Controllers\Api\UserController; 
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,5 +32,5 @@ Route::middleware('auth:sanctum')->group(function ()
     Route::resource('client', ClientsController::class);
     Route::resource('group', GroupsController::class);
     Route::post('groupclient',[GroupClientController::class, 'groupClient' ] );
-    
+    Route::get('dashboard',[DashboardController::class,'dashboard']);
 });
