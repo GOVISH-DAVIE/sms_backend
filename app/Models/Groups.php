@@ -10,4 +10,12 @@ class Groups extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
+
+
+
+    public function clients()
+    {
+        return $this->hasMany(GroupClient::class, 'group_id');
+
+    }
 }

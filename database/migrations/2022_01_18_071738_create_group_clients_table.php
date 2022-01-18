@@ -16,7 +16,7 @@ class CreateGroupClientsTable extends Migration
         Schema::create('group_clients', function (Blueprint $table) {
             $table->id();
             $table->integer('group_id');
-            $table->integer('user_id');
+            $table->integer('client_id');
 
             $table->timestamps();
         });

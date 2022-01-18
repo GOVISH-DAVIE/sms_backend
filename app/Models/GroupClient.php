@@ -12,4 +12,8 @@ class GroupClient extends Model
         'group_id',
         'client_id'
     ];
+    public function clients()
+    {
+        return $this->belongsTo(Clients::class, 'client_id');
+    }
 }
