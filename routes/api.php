@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\ClientsController;
+use App\Http\Controllers\Api\GroupClientController;
 use App\Http\Controllers\Api\GroupsController;
-use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\GroupClientController;
+use App\Http\Controllers\Api\UserController; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

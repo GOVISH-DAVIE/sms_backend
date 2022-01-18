@@ -13,5 +13,10 @@ class Clients extends Model
         'email',
         'tel'
     ];
+    public function groups()
+    {
+        # code...
+        return $this->hasMany(GroupClient::class, 'client_id');
+    }
     
 }

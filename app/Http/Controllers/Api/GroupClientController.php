@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\GroupClient;
 use App\Models\Groups;
 use Illuminate\Http\Request;
 
 class GroupClientController extends Controller
 {
-    //
     public function groupClient(Request $request)
     {
 

@@ -16,4 +16,8 @@ class GroupClient extends Model
     {
         return $this->belongsTo(Clients::class, 'client_id');
     }
+    public function group()
+    {
+        return $this->belongsTo(Groups::class, 'group_id');
+    }
 }

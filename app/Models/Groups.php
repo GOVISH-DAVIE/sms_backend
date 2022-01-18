@@ -18,4 +18,5 @@ class Groups extends Model
         return $this->hasMany(GroupClient::class, 'group_id');
 
     }
+    
 }

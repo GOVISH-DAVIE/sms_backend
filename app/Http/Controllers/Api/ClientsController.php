@@ -18,7 +18,7 @@ class ClientsController extends Controller
         //
         $clients = Clients::all();
 
-        return response()->json($clients->load('groups.group4'));
+        return response()->json($clients->load('groups.group'));
     }
 
     /**
