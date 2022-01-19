@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use AfricasTalking\SDK\AfricasTalking;
+use App\Models\Clients;
 
 class SMSController extends Controller
 {
@@ -35,6 +37,21 @@ class SMSController extends Controller
     public function store(Request $request)
     {
         //
+        $username = 'payspap'; // use 'sandbox' for development in the test environment
+        $apiKey   = '16544c7fe647e8e098efdead113123abc81fb77b028c1edc6edc95d48361aafd'; // use your sandbox app API key for development in the test environment
+        $AT       = new AfricasTalking($username, $apiKey);
+        $sms      = $AT->sms();
+
+        // Use the service
+        
+        $client = Clients::find($request->client);
+        // print_r($result);
+        $result   = $sms->send([
+            'to'      => "$client->tel",
+            'message' => $request->sms
+        ]);
+        return $result;
+        // $sms = 
     }
 
     /**
