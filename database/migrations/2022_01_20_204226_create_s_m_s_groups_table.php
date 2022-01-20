@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSMSClientsTable extends Migration
+class CreateSMSGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateSMSClientsTable extends Migration
      */
     public function up()
     {
-        Schema::create('s_m_s_clients', function (Blueprint $table) {
+        Schema::create('s_m_s_groups', function (Blueprint $table) {
             $table->id();
-            $table->string('client_id');
+            $table->string('group_id');
             $table->longText('sms');
             $table->longText('timeframe')->nullable();
+            $table->longText('sent')->default('false');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateSMSClientsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('s_m_s_clients');
+        Schema::dropIfExists('s_m_s_groups');
     }
 }

@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SMSClient extends Model
+class SMSGroup extends Model
 {
     use HasFactory;
-    protected $fillable=[
-        'client_id',
+    protected $fillable = [
+        'group_id',
         'sms'
     ];
 }

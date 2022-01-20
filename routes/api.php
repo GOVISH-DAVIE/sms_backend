@@ -34,6 +34,7 @@ Route::middleware('auth:sanctum')->group(function ()
     Route::resource('group', GroupsController::class);
     Route::resource('sms', SMSController::class);
     Route::post('groupclient',[GroupClientController::class, 'groupClient' ] );
+    Route::post('smsgroup',[SMSController::class, 'smsgroup' ] );
     // Route::post('sms',[SMSController::class, 'groupClient' ] );
     Route::get('dashboard',[DashboardController::class,'dashboard']);
 });
