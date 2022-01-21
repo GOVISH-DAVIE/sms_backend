@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\SMSGroup;
 use Illuminate\Console\Command;
 
 class HourlyUpdate extends Command
@@ -11,14 +12,14 @@ class HourlyUpdate extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'hour:update';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Send an hourly email to all the users';
 
     /**
      * Create a new command instance.
@@ -37,6 +38,12 @@ class HourlyUpdate extends Command
      */
     public function handle()
     {
-        return 0;
+      $s=  SMSGroup::where('sent', 'false')->get();
+      foreach ($s as $key ) {
+          # code...
+          $key->sent='true';
+          $key->save();
+      }
+        return 'cdcdc';
     }
 }

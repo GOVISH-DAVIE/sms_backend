@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\GroupClient;
-use App\Models\Groups;
+use App\Models\Clients;
 use Illuminate\Http\Request;
-use PHPUnit\TextUI\XmlConfiguration\Group;
 
-class GroupsController extends Controller
+use Illuminate\Support\Str;
+
+class BulkClients extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,10 +18,26 @@ class GroupsController extends Controller
     public function index()
     {
         //
-        $groups = Groups::all();
-        return $groups;
     }
+    public function upload($request)
+    {
 
+        if ($request->hasFile('img')) {
+            if ($_FILES['img']['error']) {
+                # code...
+                return false;
+            } else {
+                $extension = $request->file('img')->getClientOriginalExtension();
+
+                $fileNameToStore = Str::random(10) . '_' . time() . '.' . $extension;
+
+                $path = $request->file('img')->storeAs('public', $fileNameToStore);
+                return $fileNameToStore;
+            }
+        } else {
+            return false;
+        }
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -41,15 +57,27 @@ class GroupsController extends Controller
     public function store(Request $request)
     {
         //
-        $groups = Groups::create([
-            'name' => $request->name
-        ]);
-        $s =   GroupClient::where('group_id', $groups->id)->get();
+        // return $_FILES;s
+        $s = $this->upload($request);
+        // return $s;s
+        // return '/app/'+$
+        $filename = storage_path('app/public/'.$s);
+        $file = fopen($filename, "r");
+        $all_data = array();
+        // return $all_data;
+        while ( ($data = fgetcsv($file, 200, ",")) !==FALSE ) {
+            $name = $data[0];
+            $city = $data[1];
 
-        return [
-            'groups' => $groups,
-            'clients' => $s
-        ];
+            Clients::create([
+                'name' => $data[0],
+                'email' =>  $data[3],
+                'tel' =>  $data[1]
+            ]);
+        }
+       
+        return 'done';
+
     }
 
     /**
@@ -61,15 +89,6 @@ class GroupsController extends Controller
     public function show($id)
     {
         //
-        
-        $group = Groups::find($id);
-        $group->load('sms');
-        $s =   GroupClient::where('group_id', $group->id)->get()->load('clients');
-
-        return [
-            'groups' => $group,
-            'clients' => $s
-        ];
     }
 
     /**
@@ -81,7 +100,6 @@ class GroupsController extends Controller
     public function edit($id)
     {
         //
-
     }
 
     /**
@@ -94,12 +112,6 @@ class GroupsController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $request->validate([
-            'name' => 'required'
-        ]);
-        $group = Groups::find($id);
-        $group->name = $request->name;
-        return $group;
     }
 
     /**
@@ -111,10 +123,5 @@ class GroupsController extends Controller
     public function destroy($id)
     {
         //
-        $group = Groups::find($id);
-        $group->delete();
-        return response()->json([
-            "status" => 'Success'
-        ]);
     }
 }

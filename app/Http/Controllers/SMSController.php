@@ -137,6 +137,7 @@ class SMSController extends Controller
         $s->sms = $request->sms;
         $s->timeframe = $startTime;
         $s->sent = 'false';
+        $s->numbers = $request->client_id;
         $s->save();
         return $result;
     }

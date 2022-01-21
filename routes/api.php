@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\BulkClients;
 use App\Http\Controllers\Api\ClientsController;
 use App\Http\Controllers\Api\GroupClientController;
 use App\Http\Controllers\Api\GroupsController;
@@ -33,6 +34,7 @@ Route::middleware('auth:sanctum')->group(function ()
     Route::resource('client', ClientsController::class);
     Route::resource('group', GroupsController::class);
     Route::resource('sms', SMSController::class);
+    Route::resource('bulkclients', BulkClients::class);
     Route::post('groupclient',[GroupClientController::class, 'groupClient' ] );
     Route::post('smsgroup',[SMSController::class, 'smsgroup' ] );
     // Route::post('sms',[SMSController::class, 'groupClient' ] );

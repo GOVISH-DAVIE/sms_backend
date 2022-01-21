@@ -17,10 +17,12 @@ class Groups extends Model
         'updated_at'
     ];
 
+    public function sms()
+    {
+        return $this->hasMany(SMSGroup::class, 'group_id');
+    }
     public function clients()
     {
         return $this->hasMany(GroupClient::class, 'group_id');
-
     }
-    
 }
